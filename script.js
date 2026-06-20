@@ -27,6 +27,8 @@ const sequence = [
 ];
 
 let current = 0;
+let paused = false;
+let waitingForResume = false;
 
 function startSurprise(){
 
@@ -95,13 +97,49 @@ function showItem(){
     }
 
     content.appendChild(div);
+    const pauseBtn = document.createElement("button");
+
+pauseBtn.innerHTML = "⏸ Pause";
+
+pauseBtn.style.position = "absolute";
+pauseBtn.style.bottom = "20px";
+pauseBtn.style.right = "20px";
+pauseBtn.style.padding = "10px 20px";
+
+pauseBtn.onclick = (e)=>{
+
+    e.stopPropagation();
+
+    paused = true;
+
+    pauseBtn.innerHTML = "▶ Continue";
+};
+
+content.appendChild(pauseBtn);
 
     current++;
 
-    if(current < sequence.length){
+   if(current < sequence.length){
 
-        setTimeout(()=>{
+    setTimeout(()=>{
+
+        if(paused){
+            waitingForResume = true;
+        }else{
             showBalloon();
-        },3000);
-    }
+        }
+
+    },3000);
+
 }
+}
+
+document.addEventListener("click", () => {
+
+    if(waitingForResume){
+        paused = false;
+        waitingForResume = false;
+        showBalloon();
+    }
+
+});
