@@ -101,7 +101,7 @@ function showItem(){
         const voice = document.getElementById("voiceMessage");
 
         voice.addEventListener("play", () => {
-            bgMusic.volume = 0.1; // 10% volume
+            bgMusic.volume = 0; // 10% volume
         });
 
         voice.addEventListener("pause", () => {
