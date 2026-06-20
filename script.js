@@ -134,6 +134,16 @@ content.appendChild(pauseBtn);
 }
 }
 
+document.addEventListener("touchstart", () => {
+
+    if(waitingForResume){
+        paused = false;
+        waitingForResume = false;
+        showBalloon();
+    }
+
+});
+
 document.addEventListener("click", () => {
 
     if(waitingForResume){
