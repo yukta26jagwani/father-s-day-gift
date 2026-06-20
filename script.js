@@ -87,15 +87,33 @@ function showItem(){
 
     if(item.type==="voice"){
 
-        div.innerHTML=
-        `
-        <h2>🎤 A Message For You</h2>
-        <audio controls>
-            <source src="audio/voice.mp3" type="audio/mpeg">
-        </audio>
-        `;
-    }
+    div.innerHTML=
+    `
+    <h2>🎤 A Message For You</h2>
+    <audio id="voiceMessage" controls>
+        <source src="audio/voice.mp3" type="audio/mpeg">
+    </audio>
+    `;
 
+    setTimeout(() => {
+
+        const bgMusic = document.getElementById("bgMusic");
+        const voice = document.getElementById("voiceMessage");
+
+        voice.addEventListener("play", () => {
+            bgMusic.volume = 0.1; // 10% volume
+        });
+
+        voice.addEventListener("pause", () => {
+            bgMusic.volume = 0.4; // restore volume
+        });
+
+        voice.addEventListener("ended", () => {
+            bgMusic.volume = 0.4; // restore volume
+        });
+
+    }, 100);
+}
     content.appendChild(div);
     const pauseBtn = document.createElement("button");
 
